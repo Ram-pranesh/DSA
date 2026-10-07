@@ -1,18 +1,13 @@
 class Solution:
     def largestNumber(self, nums: List[int]) -> str:
-            nums = [str(num) for num in nums]
-
+            for i,n in enumerate(nums):
+                nums[i] = str(n)
             def cmp(a,b):
                 if a+b > b+a:
                     return -1
-                elif a+b < b+a:
-                    return 1
                 else:
-                    return 0
+                    return 1
             nums.sort(key=cmp_to_key(cmp))
-            if nums[0] =='0':
-                return "0"
-            return "".join(nums)
-                
+            return str(int("".join(nums)))
 
 
