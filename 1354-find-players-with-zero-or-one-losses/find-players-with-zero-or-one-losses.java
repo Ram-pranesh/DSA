@@ -1,14 +1,25 @@
 class Solution {
-     public List<List<Integer>> findWinners(int[][] matches){
-        Map<Integer, Integer> loss = new TreeMap<>();
-        for(int[] m : matches){
-            loss.put(m[0], loss.getOrDefault(m[0], 0));
-            loss.put(m[1], loss.getOrDefault(m[1], 0) + 1);
+    public List<List<Integer>> findWinners(int[][] mat) {
+        int n = mat.length;
+        List<List<Integer>> list = new ArrayList<>();
+        int max =0 ;
+        for(int val[]:mat) max = Math.max(max,Math.max(val[0],val[1]));
+
+        int win[] = new int[max+1];
+        int loss[] = new int [max+1];
+
+        for(int i=0;i<n;i++) {
+            win[mat[i][0]] ++;
+            loss[mat[i][1]] ++;
         }
-        List<List<Integer>> r = Arrays.asList(new ArrayList<>(), new ArrayList<>());
-        for(Integer player : loss.keySet())
-            if(loss.get(player) <= 1)
-                r.get(loss.get(player)).add(player);
-        return r;
+
+        list.add(new ArrayList<>());
+        list.add(new ArrayList<>());
+
+        for(int i=0;i<max+1;i++) {
+            if(win[i] > 0 && loss[i] ==0) list.get(0).add(i);
+            if(loss[i] == 1) list.get(1).add(i);
+        }
+        return list;
     }
 }
